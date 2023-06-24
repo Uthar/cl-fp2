@@ -50,8 +50,8 @@
 (defgeneric next (coll))
 
 ;; Associative
-(defgeneric assoc (map key val))
-(defgeneric dissoc (map key))
+(defgeneric assoc (map key val &rest keyvals))
+(defgeneric dissoc (map key &rest keys))
 (defgeneric get (map key &optional default))
 (defgeneric contains? (coll key))
 
