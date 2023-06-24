@@ -3,7 +3,9 @@
   (:local-nicknames
    (:p :lparallel)
    (:fp :cl-fp/api)
-   (:cons :cl-fp/cons)))
+   (:cons :cl-fp/cons))
+  (:export
+   :lazy-seq))
 
 (in-package cl-fp/lazy)
 
