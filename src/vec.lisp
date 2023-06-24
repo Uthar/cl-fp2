@@ -3,7 +3,8 @@
   (:shadow :vector)
   (:import-from :rb-vector)
   (:local-nicknames
-   (:api :cl-fp/api))
+   (:api :cl-fp/api)
+   (:util :cl-fp/util))
   (:export
    #:vector))
 
@@ -30,4 +31,11 @@
 (defmethod api:rest ((vec rb-vector:rb-vector))
   (rb-vector:slice vec 1))
 
-;; (defmethod api:assoc ((vec rb-vector:rb-vector) key val &rest keyvals)
+(defmethod api:assoc ((vec rb-vector:rb-vector) key val &rest keyvals)
+  (assert (evenp (length keyvals)))
+  (cl:reduce (lambda (vec keyval)
+               (destructuring-bind (key val) keyval
+                 (rb-vector:insert vec key val)))
+             (util:partition 2 keyvals)
+             :initial-value (rb-vector:insert vec key val)))
+
