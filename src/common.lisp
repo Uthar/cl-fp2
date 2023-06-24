@@ -11,6 +11,7 @@
 (defmethod next ((coll null))
   nil)
 
+;; NOTE remove... probably
 (defmethod seq ((coll collection))
   (when (first coll)
     coll))
