@@ -43,3 +43,9 @@
 (defmethod api:dissoc ((map cl-hamt:hash-dict) key &rest keys)
   (apply #'cl-hamt:dict-remove map key keys))
 
+(defmethod api:get ((map cl-hamt:hash-dict) key &optional default)
+  (multiple-value-bind (value found)
+      (cl-hamt:dict-lookup map key)
+    (if found
+        value
+        default)))
