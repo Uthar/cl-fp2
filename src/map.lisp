@@ -49,3 +49,9 @@
     (if found
         value
         default)))
+
+(defmethod api:contains? ((map cl-hamt:hash-dict) key)
+  (multiple-value-bind (value found)
+      (cl-hamt:dict-lookup map key)
+    (declare (ignore value))
+    found))
