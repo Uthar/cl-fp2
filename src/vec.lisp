@@ -39,3 +39,24 @@
              (util:partition 2 keyvals)
              :initial-value (rb-vector:insert vec key val)))
 
+(defmethod api:get ((vec rb-vector:rb-vector) key &optional default)
+  (check-type key (integer 0))
+  (if (< key (api:count vec))
+      (rb-vector:lookup vec key)
+      default))
+
+(defmethod api:contains? ((vec rb-vector:rb-vector) key)
+  (check-type key (integer 0))
+  (< key (api:count vec)))
+
+(defmethod api:nth ((vec rb-vector:rb-vector) index &optional default)
+  (check-type index (integer 0))
+  (if (< index (api:count vec))
+      (rb-vector:lookup vec index)
+      (or default (error "Index out of bounds"))))
+
+(defmethod api:pop ((vec rb-vector:rb-vector))
+  (rb-vector:pop vec))
+
+(defmethod api:peek ((vec rb-vector:rb-vector))
+  (rb-vector:peek vec))

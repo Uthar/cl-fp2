@@ -56,7 +56,7 @@
 (defgeneric contains? (coll key))
 
 ;; Indexed
-(defgeneric nth (coll index))
+(defgeneric nth (coll index &optional default))
 
 ;; Stack
 (defgeneric pop (coll))
