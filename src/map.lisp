@@ -29,6 +29,17 @@
                            pairs)))
                  alist
                  :initial-value (list)))))
-                           
-          
-           
+
+(defmethod api:count ((map cl-hamt:hash-dict))
+  (cl-hamt:dict-size map))
+
+(defmethod api:empty ((map cl-hamt:hash-dict))
+  (cl-hamt:empty-dict))
+
+(defmethod api:assoc ((map cl-hamt:hash-dict) key val &rest keyvals)
+  (assert (evenp (length keyvals)))
+  (apply #'cl-hamt:dict-insert map key val keyvals))
+
+(defmethod api:dissoc ((map cl-hamt:hash-dict) key &rest keys)
+  (apply #'cl-hamt:dict-remove map key keys))
+
