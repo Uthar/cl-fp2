@@ -3,6 +3,8 @@
    #:cl-fp/api
    #:cl-fp/cons
    #:cl-fp/lazy
+   #:cl-fp/pair
+   #:cl-fp/map
    #:cl-fp/common
    #:cl-fp/lib
    #:cl)
@@ -10,5 +12,7 @@
    #:cl-fp/api
    #:cl-fp/cons
    #:cl-fp/lazy
+   #:cl-fp/pair
+   #:cl-fp/map
    #:cl-fp/common
    #:cl-fp/lib))
