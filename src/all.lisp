@@ -5,6 +5,7 @@
    #:cl-fp/lazy
    #:cl-fp/pair
    #:cl-fp/map
+   #:cl-fp/vec
    #:cl-fp/lib
    #:cl)
   (:use-reexport
@@ -13,4 +14,5 @@
    #:cl-fp/lazy
    #:cl-fp/pair
    #:cl-fp/map
+   #:cl-fp/vec
    #:cl-fp/lib))
