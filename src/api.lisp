@@ -63,7 +63,7 @@
 (defgeneric peek (coll))
 
 ;; Set
-(defgeneric disj (set key))
+(defgeneric disj (set key &rest keys))
 
 ;; Sorted
 (defgeneric rseq (rev))
