@@ -13,6 +13,9 @@
    (value :initarg :value :reader get-value))
   (:documentation "Key-value pair."))
 
+(defun pair (key value)
+  (make-instance 'pair :key key :value value))
+
 (defmethod api:first ((pair pair))
   (get-key pair))
 
