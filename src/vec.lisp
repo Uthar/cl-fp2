@@ -60,3 +60,13 @@
 
 (defmethod api:peek ((vec rb-vector:rb-vector))
   (rb-vector:peek vec))
+
+(defmethod print-object ((vec rb-vector:rb-vector) stream)
+  (format stream "[")
+  (let ((vec-size (rb-vector:count vec))
+        (position 0))
+    (dotimes (index vec-size)
+      (format stream "~s" (rb-vector:lookup vec index))
+      (unless (= (incf position) vec-size)
+        (format stream " "))))
+  (format stream "]"))
