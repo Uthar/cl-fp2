@@ -44,3 +44,13 @@
    keys
    :initial-value set))
    
+(defmethod print-object ((set cl-hamt:hash-set) stream)
+  (format stream "#{")
+  (let ((set-size (cl-hamt:set-size set))
+        (position 0))
+    (dolist (entry (cl-hamt:set->list set))
+      (format stream "~s" entry)
+      (unless (= (incf position) set-size)
+        (format stream " "))))
+  (format stream "}"))
+
