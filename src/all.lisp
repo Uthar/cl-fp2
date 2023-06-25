@@ -6,6 +6,7 @@
    #:cl-fp/pair
    #:cl-fp/map
    #:cl-fp/vec
+   #:cl-fp/set
    #:cl-fp/lib
    #:cl)
   (:use-reexport
@@ -15,4 +16,5 @@
    #:cl-fp/pair
    #:cl-fp/map
    #:cl-fp/vec
+   #:cl-fp/set
    #:cl-fp/lib))

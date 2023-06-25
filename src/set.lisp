@@ -8,6 +8,9 @@
 
 (in-package cl-fp/set)
 
+(defun hash-set (&rest elems)
+  (apply #'cl-hamt:set-insert (cl-hamt:empty-set) elems))
+   
 (defmethod api:conj ((set cl-hamt:hash-set) val)
   (cl-hamt:set-insert set val))
 
