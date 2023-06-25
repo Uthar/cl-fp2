@@ -4,7 +4,9 @@
   (:import-from :alexandria :if-let)
   (:local-nicknames
    (:cons :cl-fp/cons)
-   (:api :cl-fp/api)))
+   (:api :cl-fp/api))
+  (:export
+   #:hash-set))
 
 (in-package cl-fp/set)
 
