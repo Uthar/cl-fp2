@@ -24,6 +24,7 @@
 (defmethod api:first ((coll (eql +empty-list+))) nil)
 (defmethod api:rest  ((coll (eql +empty-list+))) +empty-list+)
 (defmethod api:empty ((coll (eql +empty-list+))) +empty-list+)
+(defmethod api:seq   ((coll (eql +empty-list+))) +empty-list+)
 (defmethod api:conj  ((coll (eql +empty-list+)) x) (cons x +empty-list+))
 
 (defun list (&rest xs)
@@ -35,6 +36,7 @@
 (defmethod api:first ((cons cons)) (get-first cons))
 (defmethod api:rest  ((cons cons)) (or (get-rest cons) +empty-list+))
 (defmethod api:empty ((cons cons)) +empty-list+)
+(defmethod api:seq   ((cons cons)) cons)
 (defmethod api:conj  ((cons cons) x) (cons x cons))
 
 
