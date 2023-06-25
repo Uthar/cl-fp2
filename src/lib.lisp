@@ -1,7 +1,7 @@
 (defpackage cl-fp/lib
   (:use :cl)
   (:shadow :reduce)
-  (:shadowing-import-from :cl-fp/api :collection :first :rest :seq)
+  (:shadowing-import-from :cl-fp/api :get :collection :first :rest :seq :assoc)
   (:shadowing-import-from :cl-fp/cons :cons :list)
   (:shadowing-import-from :cl-fp/lazy :lazy-seq)
   (:export
@@ -55,6 +55,14 @@
         (lp init coll)
         (lp (first coll) (rest coll)))))
 
+(defun get-in (m ks)
+  (do* ((keys ks (cl:rest keys))
+        (map (get m (cl:first keys))
+             (get map (cl:first keys))))
+       ((null (cl:rest keys)) map)))
+
+
+
 ;; TODO
 #|
 assoc-in
@@ -83,7 +91,7 @@ flatten
 for
 frequencies
 get
-get-in
++ get-in
 group-by
 hash-map
 hash-set
