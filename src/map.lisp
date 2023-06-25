@@ -55,3 +55,15 @@
       (cl-hamt:dict-lookup map key)
     (declare (ignore value))
     found))
+
+(defmethod print-object ((map cl-hamt:hash-dict) stream)
+  (format stream "{")
+  (let ((map-size (cl-hamt:dict-size map))
+        (position 0))
+    (dolist (entry (cl-hamt:dict->alist map))
+      (destructuring-bind (key . value) entry
+        (format stream "~s ~s" key value)
+        (unless (= (incf position) map-size)
+          (format stream ", ")))))
+  (format stream "}"))
+               
