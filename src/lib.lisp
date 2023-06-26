@@ -9,7 +9,8 @@
    #:take
    #:drop
    #:iterate
-   #:reduce))
+   #:reduce
+   #:get-in))
 
 (in-package cl-fp/lib)
 
@@ -56,6 +57,7 @@
         (lp (first coll) (rest coll)))))
 
 (defun get-in (m ks)
+  (check-type ks cl:cons)
   (do* ((keys ks (cl:rest keys))
         (map (get m (cl:first keys))
              (get map (cl:first keys))))
