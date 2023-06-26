@@ -5,3 +5,7 @@
   :license "GPLv3"
   :pathname "src"
   :depends-on (cl-fp/all))
+
+(asdf:register-system-packages
+ "cl-murmurhash"
+ '(:murmurhash))
