@@ -2,6 +2,7 @@
   (:use :cl)
   (:shadow :cons :list)
   (:local-nicknames
+   (:egal :cl-fp/egal)
    (:api :cl-fp/api))
   (:export
    #:cons
@@ -19,7 +20,7 @@
                  :first x
                  :rest coll))
 
-(defclass empty-list (api:collection) ())
+(defclass empty-list (cons) ())
 (defparameter +empty-list+ (make-instance 'empty-list))
 (defmethod api:first ((coll (eql +empty-list+))) nil)
 (defmethod api:rest  ((coll (eql +empty-list+))) +empty-list+)
@@ -52,4 +53,10 @@
 
 (defmethod api:conj  ((cons cons) x) (cons x cons))
 
-
+(defmethod egal:egal ((x cons) (y cons))
+    (loop for x2 = x then (api:next x2)
+          for y2 = y then (api:next y2)
+          while (or x2 y2)
+          always (egal:egal (api:first x2)
+                            (api:first y2))))
+        

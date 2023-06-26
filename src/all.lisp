@@ -1,6 +1,8 @@
 (uiop:define-package cl-fp/all
   (:mix
    #:cl-fp/api
+   #:cl-fp/egal
+   #:cl-fp/null
    #:cl-fp/cons
    #:cl-fp/lazy
    #:cl-fp/pair
@@ -11,6 +13,8 @@
    #:cl)
   (:use-reexport
    #:cl-fp/api
+   #:cl-fp/egal
+   #:cl-fp/null
    #:cl-fp/cons
    #:cl-fp/lazy
    #:cl-fp/pair
