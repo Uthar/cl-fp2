@@ -2,6 +2,7 @@
   (:use :cl)
   (:shadow :vector)
   (:import-from :rb-vector)
+  (:import-from :murmurhash)
   (:local-nicknames
    (:api :cl-fp/api)
    (:egal :cl-fp/egal)
@@ -71,6 +72,13 @@
       (unless (= (incf position) vec-size)
         (format stream " "))))
   (format stream "]"))
+
+(defmethod murmurhash:murmurhash ((object rb-vector:rb-vector) &key)
+  (let ((count (rb-vector:count object)))
+    (do ((list (cl:list))
+         (index 0 (1+ index)))
+        ((= index count) (murmurhash:murmurhash list))
+      (push (rb-vector:lookup object index) list))))
 
 (defmethod egal:egal ((x rb-vector:rb-vector) (y rb-vector:rb-vector))
   (let ((x-count (rb-vector:count x))

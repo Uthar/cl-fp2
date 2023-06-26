@@ -1,13 +1,14 @@
 (defpackage cl-fp/map
   (:use :cl)
   (:import-from :cl-hamt)
+  (:import-from :murmurhash)
   (:shadowing-import-from
    #:cl-fp/cons
    #:list
    #:cons)
   (:import-from :cl-fp/pair :pair)
   (:local-nicknames
-   (:lib :cl-fp/lib)
+   (:egal :cl-fp/egal)
    (:api :cl-fp/api))
   (:export
    #:hash-map))
@@ -15,7 +16,7 @@
 (in-package cl-fp/map)
 
 (defun hash-map (&rest keyvals)
-  (apply #'cl-hamt:dict-insert (cl-hamt:empty-dict) keyvals))
+  (apply #'cl-hamt:dict-insert (cl-hamt:empty-dict :test #'egal:egal) keyvals))
 
 (defmethod api:conj ((coll cl-hamt:hash-dict) x)
   (cl-hamt:dict-insert coll (api:first x) (api:first (api:rest x))))
@@ -34,7 +35,7 @@
   (cl-hamt:dict-size map))
 
 (defmethod api:empty ((map cl-hamt:hash-dict))
-  (cl-hamt:empty-dict))
+  (cl-hamt:empty-dict :test #'egal:egal))
 
 (defmethod api:assoc ((map cl-hamt:hash-dict) key val &rest keyvals)
   (assert (evenp (length keyvals)))
@@ -67,3 +68,11 @@
           (format stream ", ")))))
   (format stream "}"))
                
+(defmethod murmurhash:murmurhash ((object cl-hamt:hash-dict) &key)
+  (murmurhash:murmurhash (cl-hamt:dict->alist object)))
+
+(defmethod egal:egal ((x cl-hamt:hash-dict) (y cl-hamt:hash-dict))
+  (let ((x-count (cl-hamt:dict-size x))
+        (y-count (cl-hamt:dict-size y)))
+    (and (egal:egal x-count y-count)
+         (cl-hamt:dict-eq x y))))
