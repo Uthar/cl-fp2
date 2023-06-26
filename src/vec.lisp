@@ -4,6 +4,7 @@
   (:import-from :rb-vector)
   (:local-nicknames
    (:api :cl-fp/api)
+   (:egal :cl-fp/egal)
    (:util :cl-fp/util))
   (:export
    #:vector))
@@ -70,3 +71,12 @@
       (unless (= (incf position) vec-size)
         (format stream " "))))
   (format stream "]"))
+
+(defmethod egal:egal ((x rb-vector:rb-vector) (y rb-vector:rb-vector))
+  (let ((x-count (rb-vector:count x))
+        (y-count (rb-vector:count y)))
+    (and (egal:egal x-count y-count)
+         (loop for x-index below x-count
+               for y-index below y-count
+               always (egal:egal (rb-vector:lookup x x-index)
+                                 (rb-vector:lookup y y-index))))))
