@@ -18,9 +18,6 @@
 (defmethod api:conj ((vec rb-vector:rb-vector) val)
   (rb-vector:append vec val))
 
-(defmethod api:seq ((vec rb-vector:rb-vector))
-  vec)
-
 (defmethod api:count ((vec rb-vector:rb-vector))
   (rb-vector:count vec))
 
@@ -32,6 +29,10 @@
 
 (defmethod api:rest ((vec rb-vector:rb-vector))
   (rb-vector:slice vec 1))
+
+(defmethod api:seq ((vec rb-vector:rb-vector))
+  (when (api:first vec)
+    vec))
 
 (defmethod api:assoc ((vec rb-vector:rb-vector) key val &rest keyvals)
   (assert (evenp (length keyvals)))

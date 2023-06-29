@@ -14,3 +14,6 @@
 
 (defmethod api:next ((coll null))
   nil)
+
+(defmethod api:seq ((coll null))
+  nil)
