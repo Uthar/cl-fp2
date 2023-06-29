@@ -1,6 +1,7 @@
 (defpackage cl-fp/cons
   (:use :cl)
   (:shadow :cons :list)
+  (:import-from :murmurhash)
   (:local-nicknames
    (:egal :cl-fp/egal)
    (:api :cl-fp/api))
@@ -59,4 +60,9 @@
           while (or x2 y2)
           always (egal:egal (api:first x2)
                             (api:first y2))))
-        
+
+(defmethod murmurhash:murmurhash ((object cons) &key)
+  (do ((list (cl:list))
+       (next object (api:next next)))
+      ((null next) (murmurhash:murmurhash list))
+    (push (api:first next) list)))
