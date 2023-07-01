@@ -30,6 +30,11 @@
 (defmethod api:rest ((vec rb-vector:rb-vector))
   (rb-vector:slice vec 1))
 
+(defmethod api:next  ((vec rb-vector:rb-vector))
+  (let ((rest (api:rest vec)))
+    (when (plusp (api:count rest))
+      rest)))
+
 (defmethod api:seq ((vec rb-vector:rb-vector))
   (when (api:first vec)
     vec))
