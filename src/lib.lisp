@@ -4,13 +4,15 @@
   (:shadowing-import-from :cl-fp/api :get :collection :first :rest :seq :assoc)
   (:shadowing-import-from :cl-fp/cons :cons :list)
   (:shadowing-import-from :cl-fp/lazy :lazy-seq)
+  (:import-from :cl-fp/map :hash-map)
   (:export
    #:range
    #:take
    #:drop
    #:iterate
    #:reduce
-   #:get-in))
+   #:get-in
+   #:assoc-in))
 
 (in-package cl-fp/lib)
 
@@ -63,21 +65,30 @@
              (get map (cl:first keys))))
        ((null (cl:rest keys)) map)))
 
-
+(defun assoc-in (m ks v)
+  (check-type ks cl:list)
+  (if (= 1 (cl:length ks))
+      (assoc m (cl:first ks) v)
+      (assoc m
+             (cl:first ks)
+             (assoc-in (get m
+                            (cl:first ks)
+                            (hash-map))
+                       (cl:rest ks)
+                       v))))
+         
+          
 
 ;; TODO
 #|
-assoc-in
-associative?
++ assoc-in
 butlast
-coll?
 concat
-counted?
 distinct
 doall
 dorun
 doseq
-drop
++ drop
 drop-last
 drop-while
 empty
