@@ -1,9 +1,19 @@
 (defpackage cl-fp/lib
   (:use :cl)
-  (:shadow :reduce)
-  (:shadowing-import-from :cl-fp/api :get :collection :first :rest :seq :assoc)
+  (:shadow :reduce :butlast)
+  (:shadowing-import-from
+   :cl-fp/api
+   :get
+   :collection
+   :first
+   :rest
+   :next
+   :seq
+   :assoc
+   :conj)
   (:shadowing-import-from :cl-fp/cons :cons :list)
   (:shadowing-import-from :cl-fp/lazy :lazy-seq)
+  (:shadowing-import-from :cl-fp/vec :vector)
   (:import-from :cl-fp/map :hash-map)
   (:export
    #:range
@@ -12,7 +22,8 @@
    #:iterate
    #:reduce
    #:get-in
-   #:assoc-in))
+   #:assoc-in
+   #:butlast))
 
 (in-package cl-fp/lib)
 
@@ -77,12 +88,18 @@
                        (cl:rest ks)
                        v))))
          
-          
+(defun butlast (coll)
+  (do ((next coll (next next))
+       (butlast (vector)
+                (if (next next)
+                    (conj butlast (first next))
+                    butlast)))
+      ((null next) butlast)))
 
 ;; TODO
 #|
 + assoc-in
-butlast
++ butlast
 concat
 distinct
 doall
