@@ -77,16 +77,16 @@
        ((null (cl:rest keys)) map)))
 
 (defun assoc-in (m ks v)
-  (check-type ks cl:list)
-  (if (= 1 (cl:length ks))
-      (assoc m (cl:first ks) v)
-      (assoc m
-             (cl:first ks)
-             (assoc-in (get m
-                            (cl:first ks)
-                            (hash-map))
-                       (cl:rest ks)
-                       v))))
+  (check-type ks cl:cons)
+  (let ((rest (cl:rest ks))
+        (first (cl:first ks)))
+    (if (null rest)
+        (assoc m first v)
+        (assoc m
+               first
+               (assoc-in (get m first (hash-map))
+                         rest
+                         v)))))
          
 (defun butlast (coll)
   (do ((next coll (next next))
