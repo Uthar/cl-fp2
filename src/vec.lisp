@@ -36,7 +36,7 @@
       rest)))
 
 (defmethod api:seq ((vec rb-vector:rb-vector))
-  (when (api:first vec)
+  (when (> (rb-vector:count vec) 0)
     vec))
 
 (defmethod api:assoc ((vec rb-vector:rb-vector) key val &rest keyvals)
