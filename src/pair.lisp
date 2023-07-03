@@ -4,7 +4,9 @@
   (:local-nicknames
    (:api :cl-fp/api))
   (:export
-   #:pair))
+   #:pair
+   #:key
+   #:val))
 
 (in-package cl-fp/pair)
 
@@ -21,3 +23,9 @@
 
 (defmethod api:rest ((pair pair))
   (list (get-value pair)))
+
+(defun key (pair)
+  (get-key pair))
+
+(defun val (pair)
+  (get-value pair))
