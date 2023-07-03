@@ -40,7 +40,10 @@
 (defmethod api:first ((cons cons)) (get-first cons))
 (defmethod api:rest  ((cons cons)) (or (get-rest cons) +empty-list+))
 (defmethod api:empty ((cons cons)) +empty-list+)
-(defmethod api:seq   ((cons cons)) (when (api:first cons) cons))
+
+(defmethod api:seq   ((cons cons))
+  (unless (eq cons +empty-list+)
+    cons))
 
 (defmethod api:next  ((cons cons))
   (let ((rest (api:rest cons)))
