@@ -24,7 +24,8 @@
    #:get-in
    #:assoc-in
    #:butlast
-   #:into))
+   #:into
+   #:every?))
 
 (in-package cl-fp/lib)
 
@@ -103,6 +104,11 @@
 (defun empty? (coll)
   (null (seq coll)))
 
+(defun every? (pred coll)
+  (let ((seq (seq coll)))
+    (loop for next = seq then (next next)
+          while (seq next)
+          always (funcall pred (first next)))))
 
 ;; TODO
 #|
@@ -119,7 +125,7 @@ drop-while
 empty
 + empty?
 every-pred
-every?
++ every?
 ffirst
 filter
 filterv
