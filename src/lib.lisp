@@ -100,6 +100,9 @@
 (defun into (to from)
   (reduce #'conj from :init to))
 
+(defun empty? (coll)
+  (null (seq coll)))
+
 
 ;; TODO
 #|
@@ -114,7 +117,7 @@ doseq
 drop-last
 drop-while
 empty
-empty?
++ empty?
 every-pred
 every?
 ffirst
