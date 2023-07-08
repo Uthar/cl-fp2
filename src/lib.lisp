@@ -23,7 +23,8 @@
    #:reduce
    #:get-in
    #:assoc-in
-   #:butlast))
+   #:butlast
+   #:into))
 
 (in-package cl-fp/lib)
 
@@ -96,6 +97,10 @@
                     butlast)))
       ((null next) butlast)))
 
+(defun into (to from)
+  (reduce #'conj from :init to))
+
+
 ;; TODO
 #|
 + assoc-in
@@ -128,7 +133,7 @@ hash-set
 indexed?
 interleave
 interpose
-into
++ into
 iterate
 iteration
 juxt
