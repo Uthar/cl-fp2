@@ -1,8 +1,10 @@
 (defpackage cl-fp/pair
   (:use :cl)
+  (:import-from :murmurhash)
   (:shadowing-import-from :cl-fp/cons :list)
   (:local-nicknames
-   (:api :cl-fp/api))
+   (:api :cl-fp/api)
+   (:egal :cl-fp/egal))
   (:export
    #:pair
    #:key
@@ -29,3 +31,12 @@
 
 (defun val (pair)
   (get-value pair))
+
+(defmethod murmurhash:murmurhash ((pair pair) &key)
+  (murmurhash:murmurhash (list (key pair) (val pair))))
+
+(defmethod egal:egal ((x pair) (y pair))
+  (and (egal:egal (key x) (key y))
+       (egal:egal (val x) (val y))))
+
+
